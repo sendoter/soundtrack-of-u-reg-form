@@ -1,0 +1,418 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;600;800;900&display=swap');
+
+:root {
+  --neon-lime: #b6ff00;
+  --dark-bg: #111111;
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-bg: rgba(20, 20, 20, 0.85);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--dark-bg);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.7), rgba(10, 10, 10, 0.95)),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 2px);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+/* Page Outer Layout (Centers Form) */
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+/* Outer Container for Card and CD positioning */
+.case-container {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Spinning CD Background Element */
+.spinning-cd-wrapper {
+  position: fixed;
+  /* Fixed so it spans the entire screen background */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinning-cd {
+  /* Use max() to ensure the CD fully covers the display dimensions */
+  width: max(120vw, 120vh);
+  height: max(120vw, 120vh);
+  object-fit: cover;
+  mix-blend-mode: screen;
+  animation: spinVinyl 12s linear infinite;
+  filter: drop-shadow(0 0 25px rgba(182, 255, 0, 0.25));
+}
+
+@keyframes spinVinyl {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Jewel Case Container */
+.jewel-case {
+  width: 100%;
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 32px 24px 24px 24px;
+  position: relative;
+  z-index: 2;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.9),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+}
+
+/* Glass Reflection Sheen */
+.jewel-case::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  background: linear-gradient(115deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.05) 45%,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent 55%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Image Badge Style */
+.badge-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.soundtrack-badge-img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+/* Sticky Tape Base Style */
+.tag-sticker {
+  background-color: var(--neon-lime);
+  color: #000;
+  font-weight: 900;
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  text-transform: uppercase;
+  display: inline-block;
+  box-shadow: 3px 3px 0px #000;
+  white-space: nowrap;
+  z-index: 30;
+  border: 1px solid #000;
+  pointer-events: none;
+}
+
+/* Sticky Tape Outward Positions (Clear of Text & Buttons) */
+
+/* 1. Top Left - Tilted clear above top left border */
+.tape-top-left {
+  position: absolute;
+  top: -18px;
+  left: -28px;
+  transform: rotate(-6deg);
+}
+
+/* 2. Top Right - Tilted clear above top right border */
+.tape-top-right {
+  position: absolute;
+  top: 0px;
+  right: -32px;
+  transform: rotate(4deg);
+}
+
+/* 3. Middle Right - Shifted right out of input area */
+.tape-mid-right {
+  position: absolute;
+  top: 220px;
+  right: -36px;
+  transform: rotate(-4deg);
+}
+
+/* 4. Bottom Left - Shifted down-left clear of the barcode */
+.tape-bottom-left {
+  position: absolute;
+  bottom: -16px;
+  left: -24px;
+  transform: rotate(5deg);
+}
+
+/* Responsive Scaling for Small Mobile Displays */
+@media (max-width: 520px) {
+  .spinning-cd-wrapper {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .spinning-cd {
+    width: max(140vw, 140vh);
+    height: max(140vw, 140vh);
+  }
+
+  .tag-sticker {
+    font-size: 0.5rem;
+    padding: 3px 6px;
+  }
+
+  .tape-top-left {
+    top: -14px;
+    left: -10px;
+  }
+
+  .tape-top-right {
+    top: 10px;
+    right: -12px;
+  }
+
+  .tape-mid-right {
+    right: -12px;
+    top: 230px;
+  }
+
+  .tape-bottom-left {
+    bottom: -12px;
+    left: -10px;
+  }
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.title-serif {
+  font-family: 'Cinzel', serif;
+  color: var(--neon-lime);
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 10px rgba(182, 255, 0, 0.3);
+  margin: 0;
+}
+
+.subtitle-bold {
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--neon-lime);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 0.88rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: var(--neon-lime);
+  box-shadow: 0 0 8px rgba(182, 255, 0, 0.4);
+}
+
+.form-input::placeholder {
+  color: #666;
+}
+
+/* Submit Button */
+.btn-submit {
+  width: 100%;
+  background: var(--neon-lime);
+  color: #000;
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.1s ease, filter 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(182, 255, 0, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.btn-submit:hover {
+  filter: brightness(1.1);
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+}
+
+.btn-submit:disabled {
+  background: #333;
+  color: #777;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Barcode Card & Footer */
+.barcode-box {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.barcode-card {
+  background: #ffffff;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.barcode-card svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.event-details {
+  text-align: right;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  color: #ccc;
+  line-height: 1.35;
+}
+
+.event-details strong {
+  color: #fff;
+  display: block;
+  font-size: 0.78rem;
+}
+
+/* Alerts */
+.alert {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.alert-success {
+  background: rgba(182, 255, 0, 0.15);
+  border: 1px solid var(--neon-lime);
+  color: var(--neon-lime);
+}
+
+.alert-error {
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid #ff4d4d;
+  color: #ff6b6b;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

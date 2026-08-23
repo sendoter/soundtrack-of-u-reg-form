@@ -65,13 +65,15 @@ body {
 }
 
 .spinning-cd {
-  /* Use max() to ensure the CD fully covers the display dimensions */
   width: max(120vw, 120vh);
   height: max(120vw, 120vh);
   object-fit: cover;
   mix-blend-mode: screen;
-  animation: spinVinyl 12s linear infinite;
-  filter: drop-shadow(0 0 25px rgba(182, 255, 0, 0.25));
+  animation: spinVinyl 24s linear infinite;
+  /* Slowed down from 12s to 24s */
+  opacity: 0.25;
+  /* Reduces overall visual intensity */
+  filter: drop-shadow(0 0 15px rgba(182, 255, 0, 0.15));
 }
 
 @keyframes spinVinyl {

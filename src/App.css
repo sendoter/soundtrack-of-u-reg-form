@@ -418,3 +418,74 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* Checkbox Custom Styling */
+.checkbox-group {
+  margin-top: 18px;
+  margin-bottom: 20px;
+}
+
+.form-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.form-checkbox-label:hover {
+  color: #ffffff;
+}
+
+/* Custom Checkbox Design */
+.form-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Hover & Focus State */
+.form-checkbox:hover {
+  border-color: var(--neon-lime);
+  box-shadow: 0 0 6px rgba(182, 255, 0, 0.25);
+}
+
+.form-checkbox:focus-visible {
+  border-color: var(--neon-lime);
+  box-shadow: 0 0 8px rgba(182, 255, 0, 0.4);
+}
+
+/* Checked State */
+.form-checkbox:checked {
+  background-color: var(--neon-lime);
+  border-color: var(--neon-lime);
+  box-shadow: 0 0 10px rgba(182, 255, 0, 0.4);
+}
+
+/* Custom Checkmark Icon */
+.form-checkbox:checked::after {
+  content: '';
+  width: 4px;
+  height: 8px;
+  border: solid #000000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+}

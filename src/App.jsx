@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
-import { User, Calendar, MessageSquare, CheckCircle, Loader2 } from 'lucide-react';
+import { User, Calendar, MessageSquare, CheckCircle, Loader2, CheckSquare } from 'lucide-react';
 import Barcode from 'react-barcode';
-import soundtrackBadge from './assets/soundtrack-badge.png'; // Adjust path as needed
-import cdDisc from './assets/cd-disc.png'; // Import your CD image asset here
+import soundtrackBadge from './assets/soundtrack-badge.png';
+import cdDisc from './assets/cd-disc.png';
 import './App.css';
 
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyh1gUHFXsDBSt8-w_giU43qr1OGXu1Qjl8lbt1Y_5sBLKbK6ladfSrktsh8EtjOtjJ/exec';
 
 export default function App() {
-  const [formData, setFormData] = useState({ name: '', age: '', handle: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    handle: '',
+    isFirstTimer: false
+  });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -36,7 +45,7 @@ export default function App() {
 
       if (result.result === 'success') {
         setStatus({ type: 'success', message: 'Registration Saved!' });
-        setFormData({ name: '', age: '', handle: '' });
+        setFormData({ name: '', age: '', handle: '', isFirstTimer: false });
       } else {
         throw new Error(result.error || 'Submission failed');
       }
@@ -61,16 +70,16 @@ export default function App() {
         <div className="jewel-case">
           {/* Sticky Note Tapes Positioned Safely Outward */}
           <div className="tag-sticker tape-top-left">
-            TELL GOD WHAT YOU NEED,
-          </div>
-          <div className="tag-sticker tape-top-right">
-            AND THANK HIM FOR ALL HE HAS DONE.
-          </div>
-          <div className="tag-sticker tape-mid-right">
             DON'T WORRY ABOUT ANYTHING;
           </div>
-          <div className="tag-sticker tape-bottom-left">
+          <div className="tag-sticker tape-top-right">
             INSTEAD, PRAY ABOUT EVERYTHING.
+          </div>
+          <div className="tag-sticker tape-mid-right">
+            TELL GOD WHAT YOU NEED,
+          </div>
+          <div className="tag-sticker tape-bottom-left">
+            AND THANK HIM FOR ALL HE HAS DONE.
           </div>
 
           {/* Custom Image Badge Replacement */}
@@ -139,6 +148,20 @@ export default function App() {
                 placeholder="e.g. m.me/username or FB Name"
                 className="form-input"
               />
+            </div>
+
+            {/* First Timer Checkbox */}
+            <div className="form-group checkbox-group">
+              <label className="form-checkbox-label">
+                <input
+                  type="checkbox"
+                  name="isFirstTimer"
+                  checked={formData.isFirstTimer}
+                  onChange={handleChange}
+                  className="form-checkbox"
+                />
+                First time attending Lighthouse Antipolo
+              </label>
             </div>
 
             <button

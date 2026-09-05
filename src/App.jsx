@@ -5,7 +5,7 @@ import soundtrackBadge from './assets/soundtrack-badge.png';
 import cdDisc from './assets/cd-disc.png';
 import './App.css';
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyh1gUHFXsDBSt8-w_giU43qr1OGXu1Qjl8lbt1Y_5sBLKbK6ladfSrktsh8EtjOtjJ/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYAVCxYDLwaFexVzmzsbTZiEm6wYY9HIrqubniz2reokUbF90lsegwith-sC4QOHK6/exec';
 
 export default function App() {
   const [formData, setFormData] = useState({

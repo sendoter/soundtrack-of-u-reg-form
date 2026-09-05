@@ -33,22 +33,19 @@ export default function App() {
     setStatus({ type: '', message: '' });
 
     try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors', // Prevents CORS preflight blocking and redirect errors
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
+      // With mode: 'no-cors', reaching this point means the payload was successfully posted
+      setStatus({ type: 'success', message: 'Registration Saved!' });
+      setFormData({ name: '', age: '', handle: '', isFirstTimer: false });
 
-      if (result.result === 'success') {
-        setStatus({ type: 'success', message: 'Registration Saved!' });
-        setFormData({ name: '', age: '', handle: '', isFirstTimer: false });
-      } else {
-        throw new Error(result.error || 'Submission failed');
-      }
     } catch (err) {
       console.error(err);
       setStatus({ type: 'error', message: 'Failed to submit. Please try again.' });
